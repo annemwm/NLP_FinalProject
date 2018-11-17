@@ -11,9 +11,13 @@ class Parser:
     """
     Takes a morphological parse and returns the meaning parse.
     """
-    def MeaningParse(self, MPparse):
+    def MeaningParse(self, MParse):
         return os.popen("java -cp .:Uqailaut.jar:junit.jar MeaningParseWrapper \"{}\"".format(MParse)).read()
 
 if __name__ == "__main__":
     p = Parser()
-    print(p.MeaningParse(sys.argv[1]))
+    morph = p.MorphologicalParse(sys.argv[1])
+    morph = morph.split("\n")[0]
+    print("First Morphogical Parse: {}".format(morph))
+    meaning = p.MeaningParse(morph)
+    print("Meaning Parse: {}".format(meaning))
