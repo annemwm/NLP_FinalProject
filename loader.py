@@ -13,10 +13,11 @@ def load_parallel_corpora(file1, file2):
         for e_line, i_line in zip(engl, inuk):
             if (e_line.strip() =="") or (i_line.strip()==""):
                 continue
-            par[line_ID] = (e_line.strip().lower(), i_line.strip())
+            par[line_ID] = (e_line.strip().lower(), i_line.strip().lower())
             line_ID += 1
     print(line_ID)
     test_keys = set(random.sample(range(1, line_ID+1), 50000))
+    #test_keys = set(range(1, 100))
     train = {}
     test = {}
     for k in par:
@@ -30,4 +31,4 @@ def load_parallel_corpora(file1, file2):
 
 train, test = load_parallel_corpora("English_Parsed.txt", "Inuktitut_Parsed.txt")
 #print(train[1])
-#print(test)
+print(test)
