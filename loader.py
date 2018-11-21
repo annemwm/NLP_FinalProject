@@ -1,6 +1,9 @@
 ## load the corpora
 import random
+import string
 
+translator = str.maketrans('', '', string.punctuation.replace("'", "").replace("-",""))
+quote = str.maketrans("'-", '  ')
 def load_parallel_corpora(file1, file2):
     '''
     Load the two datasets
@@ -13,11 +16,13 @@ def load_parallel_corpora(file1, file2):
         for e_line, i_line in zip(engl, inuk):
             if (e_line.strip() =="") or (i_line.strip()==""):
                 continue
-            par[line_ID] = (e_line.strip().lower(), i_line.strip().lower())
+            e_line = e_line.strip().lower().translate(translator).translate(quote)
+            i_line = i_line.strip().lower().translate(translator).translate(quote)
+            par[line_ID] = (e_line, i_line)
             line_ID += 1
     print(line_ID)
-    test_keys = set(random.sample(range(1, line_ID+1), 50000))
-    #test_keys = set(range(1, 100))
+    #test_keys = set(random.sample(range(1, line_ID+1), 50000))
+    test_keys = set(range(1, 100))
     train = {}
     test = {}
     for k in par:
