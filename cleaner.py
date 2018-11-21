@@ -1,19 +1,26 @@
-# 1). Parse them into 2 dictionaries
-# 2). Morphologically decompose Inuktitut sentences
-#     2b. maybe later we decompose English let's see how it goes
-# 3).
-import string
-translator = string.maketrans(string.punctuation, ' '*(len(string.punctuation))) #map punctuation to space
 
-with open("SentenceAligned.v2.txt", "r") as corpus:
-    with open("English_Parsed.txt", "w") as engl:
-        with open("Inuktitut_Parsed.txt", "w") as inuk:
-            i_line = True
-            for line in corpus:
-                if any(c.isalpha() for c in line):
-                    clean_line = line.translate(translator)
-                    if i_line:
-                        inuk.write(clean_line)
-                    else:
-                        engl.write(clean_line)
-                    i_line = not i_line
+
+
+# with open("SentenceAligned.v2.txt", "r") as corpus, open("English_Parsed.txt", "w") as engl, open("Inuktitut_Parsed.txt", "w") as inuk, open("exclude.txt", "w") as ex:
+#     line_index = 0
+#     for line in corpus:
+#         line_index += 1
+#         if line_index % 4 == 0:
+#             engl.write(line+"\r\n")
+#         elif line_index % 2 == 0:
+#             inuk.write(line+"\r\n")
+#         else:
+#             ex.write(line)
+with open("SentenceAligned.v2.txt", "r") as corpus, open("English_Parsed.txt", "w") as engl, open("Inuktitut_Parsed.txt", "w") as inuk, open("exclude.txt", "w") as ex:
+    text = corpus.read()
+    text = text.split("*************** ")
+    i_ct = 0
+    for pair in text:
+        p = pair.split("-----")
+        if len(p) != 2:
+            continue
+        else:
+            if p[1].strip() == "":
+                continue
+            engl.write(p[1]+"\r\n")
+            inuk.write(p[0]+"\r\n")
