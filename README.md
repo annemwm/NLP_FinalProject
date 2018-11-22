@@ -7,7 +7,8 @@ To compile jar wrappers for java:
 ```
 cd Parser
 
-javac -cp Uqailaut.jar MorphologicalParseWrapper.java
+javac -cp Uqailaut.jar MorphologicalParser.java
 
-javac -cp Uqailaut.jar MeaningParserWrapper.java
+java -cp .:Uqailaut.jar:junit.jar MorphologicalParser
 ```
+This will write the Morphological parse to Morph_Parsed.txt
