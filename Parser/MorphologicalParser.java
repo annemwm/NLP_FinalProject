@@ -21,11 +21,13 @@ public class MorphologicalParser{
             writer = new BufferedWriter(new FileWriter("../Morph_Parsed.txt", true));
             String line = reader.readLine();
             HashMap<String, String> memo = new HashMap<String, String>();
+            long startTime = System.currentTimeMillis();
+            int num = 1;
             while(line != null){
+                System.out.print("Line Number: " + num + "/527430 Elapsed Seconds at Previous Line:" + ((System.currentTimeMillis() - startTime)/1000.0) + "\r");
                 String[] splitline = line.trim().replace(",", " ").split(" ");
                 String morph = "";
                 for(String word : splitline){
-                    System.out.println(word);
                     String parse;
                     if(memo.containsKey(word)){
                         parse = memo.get(word);
@@ -43,6 +45,7 @@ public class MorphologicalParser{
                 }
                 writer.append(morph + "\n");
                 line = reader.readLine();
+                num++;
             }
             reader.close();
             writer.close();
