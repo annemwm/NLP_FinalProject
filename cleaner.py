@@ -19,5 +19,5 @@ with open("SentenceAligned.v2.txt", "r") as corpus, open("English_Parsed.txt", "
             if ("moZos3=1u vtm0Jtu#5" in p[0]):
                 continue
             p[0]= re.sub(r"[0-9]{8}", "", p[0])
-            engl.write(p[1].lower().strip().translate(translator).translate(quote)+"\r\n")
-            inuk.write(p[0].lower().strip().translate(translator).translate(quote)+"\r\n")
+            engl.write(p[1].lower().strip().translate(translator).translate(quote).strip()+"\r\n")
+            inuk.write(p[0].lower().strip().translate(translator).translate(quote).strip()+"\r\n")
