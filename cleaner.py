@@ -1,15 +1,10 @@
 
 import re
-# with open("SentenceAligned.v2.txt", "r") as corpus, open("English_Parsed.txt", "w") as engl, open("Inuktitut_Parsed.txt", "w") as inuk, open("exclude.txt", "w") as ex:
-#     line_index = 0
-#     for line in corpus:
-#         line_index += 1
-#         if line_index % 4 == 0:
-#             engl.write(line+"\r\n")
-#         elif line_index % 2 == 0:
-#             inuk.write(line+"\r\n")
-#         else:
-#             ex.write(line)
+import string
+
+translator = str.maketrans('', '', string.punctuation.replace("'", "").replace("-",""))
+quote = str.maketrans("'-", '  ')
+
 with open("SentenceAligned.v2.txt", "r") as corpus, open("English_Parsed.txt", "w") as engl, open("Inuktitut_Parsed.txt", "w") as inuk, open("exclude.txt", "w") as ex:
     text = corpus.read()
     text = text.split("*************** ")
@@ -24,5 +19,5 @@ with open("SentenceAligned.v2.txt", "r") as corpus, open("English_Parsed.txt", "
             if ("moZos3=1u vtm0Jtu#5" in p[0]):
                 continue
             p[0]= re.sub(r"[0-9]{8}", "", p[0])
-            engl.write(p[1]+"\r\n")
-            inuk.write(p[0]+"\r\n")
+            engl.write(p[1].strip().lower().translate(translator).translate(quote)+"\r\n")
+            inuk.write(p[0].strip().lower().translate(translator).translate(quote)+"\r\n")
