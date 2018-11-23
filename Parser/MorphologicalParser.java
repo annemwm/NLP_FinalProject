@@ -1,5 +1,5 @@
-import applications.Decomposer;
-import donnees.DonneesLinguistiquesAbstract;
+import applications.Decompose;
+import data.LinguisticDataAbstract;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -13,7 +13,14 @@ public class MorphologicalParser{
     * Uses the morphological parser from Uqailaut Inuktitut parser.
     */
     public static void main(String[] args){
-    	DonneesLinguistiquesAbstract.init();
+        int startPoint = 0;
+        if(args.length > 0){
+            try{
+                startPoint = Integer.parseInt(args[0]);
+            }
+            catch(Exception e){}
+        }
+        LinguisticDataAbstract.init();
         BufferedReader reader;
         BufferedWriter writer;
         try{
@@ -24,10 +31,18 @@ public class MorphologicalParser{
             long startTime = System.currentTimeMillis();
             int num = 1;
             while(line != null){
+                if(num < startPoint){
+                    line = reader.readLine();
+                    num++;
+                    continue;
+                }
                 System.out.print("Line Number: " + num + "/527430 Elapsed Seconds at Previous Line:" + ((System.currentTimeMillis() - startTime)/1000.0) + "\r");
                 String[] splitline = line.trim().replace(",", " ").split(" ");
                 String morph = "";
                 for(String word : splitline){
+                    if(word.trim().length() == 0){
+                        continue;
+                    }
                     String parse;
                     if(memo.containsKey(word)){
                         parse = memo.get(word);
@@ -37,9 +52,9 @@ public class MorphologicalParser{
                     }
                     else{
                         try{
-                            parse = Decomposer.decomposeToArrayOfStrings(word.toLowerCase())[0];
+                            parse = Decompose.decomposeToArrayOfStrings(word.toLowerCase())[0];
                         }
-                        catch(Exception e){
+                        catch(Throwable e){
                             parse = word;
                         }
                     }
