@@ -5,6 +5,8 @@ Machine translation between English and Inuktitut
 ## Parser
 To compile jar wrappers for java:
 ```
+rm Morph_Parsed.txt
+
 cd Parser
 
 javac -cp Uqailaut.jar MorphologicalParser.java
