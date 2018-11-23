@@ -32,6 +32,9 @@ public class MorphologicalParser{
                     if(memo.containsKey(word)){
                         parse = memo.get(word);
                     }
+                    else if(word.length() > 30){
+                      parse = word;
+                    }
                     else{
                         try{
                             parse = Decomposer.decomposeToArrayOfStrings(word.toLowerCase())[0];
