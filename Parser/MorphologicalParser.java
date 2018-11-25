@@ -61,7 +61,7 @@ public class MorphologicalParser{
                     memo.put(word, parse);
                     morph = morph + " " + parse;
                 }
-                writer.append(morph + "\n");
+                writer.append(morph.trim() + "\n");
                 line = reader.readLine();
                 num++;
             }
