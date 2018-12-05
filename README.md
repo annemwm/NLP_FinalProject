@@ -16,3 +16,6 @@ javac -cp Uqailaut.jar MorphologicalParser.java
 java -cp .:Uqailaut.jar:junit.jar MorphologicalParser (Start_Line)
 ```
 This will write the Morphological parse to Morph_Parsed.txt
+
+
+Source code For NRC Uqailaut Parser can be found at http://www.inuktitutcomputing.ca
