@@ -1,0 +1,2 @@
+To run the decoder, please call:
+  moses -f /mnt/c/Users/Anne/Desktop/COMP550/final_project/mert-work/filtered/moses.ini -i /mnt/c/Users/Anne/Desktop/COMP550/final_project/mert-work/filtered/input.2290
